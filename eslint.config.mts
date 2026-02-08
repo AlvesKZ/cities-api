@@ -10,8 +10,10 @@ export default defineConfig([
     {
         ignores: [
             '**/node_modules/**',
-            '**/build/**',
+            '**/dist/**',
             '**/package-lock.json',
+            '**/yarn.lock',
+            '**/pnpm-lock.yaml',
         ],
     },
 
@@ -47,10 +49,11 @@ export default defineConfig([
 
     {
         rules: {
-            semi: ['warn', 'always'],
-            indent: ['warn', 4],
-            quotes: ['warn', 'single'],
-            '@typescript-eslint/no-empty-object-type': 'off'
+            semi: ['error', 'always'],
+            indent: ['error', 4],
+            quotes: ['error', 'single'],
+            'comma-dangle': ['error', 'always-multiline'],
+            '@typescript-eslint/no-empty-object-type': 'off',
         },
     },
 ]);
