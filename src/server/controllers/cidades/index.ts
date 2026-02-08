@@ -1,5 +1,5 @@
 import { create } from './Create';
 
-export const CitiesController = {
+export const CidadesController = {
     create,
 };
