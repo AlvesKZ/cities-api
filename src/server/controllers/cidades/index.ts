@@ -1,5 +1,5 @@
-import { create } from './Create';
+import * as Create from './Create';
 
 export const CidadesController = {
-    create,
+    ...Create,
 };
