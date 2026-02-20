@@ -9,6 +9,7 @@ router.get('/', (_, res) => {
 });
 
 router.get('/cidades', CidadesController.getAllValidation , CidadesController.getAll);
+router.get('/cidades/:id', CidadesController.getByIdValidation , CidadesController.getById);
 router.post('/cidades', CidadesController.createValidation , CidadesController.create);
 
 export { router };
