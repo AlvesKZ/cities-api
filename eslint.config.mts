@@ -12,8 +12,6 @@ export default defineConfig([
             '**/node_modules/**',
             '**/dist/**',
             '**/package-lock.json',
-            '**/yarn.lock',
-            '**/pnpm-lock.yaml',
         ],
     },
 
