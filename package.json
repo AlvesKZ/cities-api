@@ -2,9 +2,8 @@
   "name": "cities-api",
   "scripts": {
     "dev": "nodemon",
-    "start": "ts-node-dev ./src/index.ts",
+    "start": "node ./build/index.js",
     "postinstall": "tsc",
-    "production": "node ./build/index.js",
     "test": "jest"
   },
   "devDependencies": {
