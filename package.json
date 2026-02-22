@@ -3,6 +3,8 @@
   "scripts": {
     "dev": "nodemon",
     "start": "ts-node-dev ./src/index.ts",
+    "postinstall": "tsc",
+    "production": "node ./build/index.js",
     "test": "jest"
   },
   "devDependencies": {
@@ -29,5 +31,8 @@
     "express": "4",
     "http-status-codes": "^2.3.0",
     "yup": "^1.7.1"
+  },
+  "engines": {
+    "node": "20.x"
   }
 }
