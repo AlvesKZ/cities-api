@@ -48,7 +48,9 @@ export default defineConfig([
     {
         rules: {
             semi: ['error', 'always'],
-            indent: ['error', 4],
+            indent: ['error', 4, {
+                'SwitchCase': 1,
+            }],
             quotes: ['error', 'single'],
             'comma-dangle': ['error', 'always-multiline'],
             '@typescript-eslint/no-empty-object-type': 'off',
