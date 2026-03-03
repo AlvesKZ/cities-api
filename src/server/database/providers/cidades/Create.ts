@@ -1,6 +1,7 @@
-import { ETableNames } from '../../ETablesNames';
-import { Knex } from '../../knex';
+import { ETableNames } from '../../ETableNames';
 import { ICidade } from '../../models';
+import { Knex } from '../../knex';
+
 
 export const create = async (cidade: Omit<ICidade, 'id'>): Promise<number | Error> => {
     try {
@@ -12,9 +13,9 @@ export const create = async (cidade: Omit<ICidade, 'id'>): Promise<number | Erro
             return result;
         }
 
-        return new Error('Error to save the city.');
+        return new Error('Erro ao cadastrar o registro');
     } catch (error) {
         console.log(error);
-        return Error('Error to save the city.');
+        return new Error('Erro ao cadastrar o registro');
     }
 };
