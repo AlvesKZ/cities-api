@@ -1,31 +1,140 @@
 import { StatusCodes } from 'http-status-codes';
+
 import { testServer } from '../jest.setup';
 
 describe('Pessoas - Create', () => {
+    let cidadeId: number | undefined = undefined;
+    beforeAll(async () => {
+        const resCidade = await testServer
+            .post('/cidades')
+            .send({ nome: 'Teste' });
 
-    it('Criar registro', async () => {
+        cidadeId = resCidade.body;
+    });
+
+    it('Cria registro', async () => {
         const res1 = await testServer
             .post('/pessoas')
             .send({
-                nomeCompleto: 'Alves',
-                email: 'email@exemplo.com',
-                cidadeId: 1,
+                cidadeId,
+                email: 'test@gmail.com',
+                nomeCompleto: 'Test silva',
             });
 
         expect(res1.statusCode).toEqual(StatusCodes.CREATED);
         expect(typeof res1.body).toEqual('number');
     });
-
-    it('Tenta criar um registro sem informar um campo obrigatório', async () => {
+    it('Cadastra registro 2', async () => {
         const res1 = await testServer
             .post('/pessoas')
             .send({
-                nomeCompleto: 'Alves',
-                cidadeId: 1,
+                cidadeId,
+                nomeCompleto: 'Test silva',
+                email: 'test2@gmail.com',
+            });
+
+        expect(res1.statusCode).toEqual(StatusCodes.CREATED);
+        expect(typeof res1.body).toEqual('number');
+    });
+    it('Tenta criar registro com email duplicado', async () => {
+        const res1 = await testServer
+            .post('/pessoas')
+            .send({
+                cidadeId,
+                nomeCompleto: 'Test silva',
+                email: 'testduplicado@gmail.com',
+            });
+        expect(res1.statusCode).toEqual(StatusCodes.CREATED);
+        expect(typeof res1.body).toEqual('number');
+
+        const res2 = await testServer
+            .post('/pessoas')
+            .send({
+                cidadeId,
+                email: 'testduplicado@gmail.com',
+                nomeCompleto: 'duplicado',
+            });
+        expect(res2.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR);
+        expect(res2.body).toHaveProperty('errors.default');
+    });
+    it('Tenta criar registro com nomeCompleto muito curto', async () => {
+        const res1 = await testServer
+            .post('/pessoas')
+            .send({
+                cidadeId,
+                email: 'test@gmail.com',
+                nomeCompleto: 'Ju',
+            });
+
+        expect(res1.statusCode).toEqual(StatusCodes.BAD_REQUEST);
+        expect(res1.body).toHaveProperty('errors.body.nomeCompleto');
+    });
+    it('Tenta criar registro sem nomeCompleto', async () => {
+        const res1 = await testServer
+            .post('/pessoas')
+            .send({
+                cidadeId,
+                email: 'test@gmail.com',
+            });
+
+        expect(res1.statusCode).toEqual(StatusCodes.BAD_REQUEST);
+        expect(res1.body).toHaveProperty('errors.body.nomeCompleto');
+    });
+    it('Tenta criar registro sem email', async () => {
+        const res1 = await testServer
+            .post('/pessoas')
+            .send({
+                cidadeId,
+                nomeCompleto: 'test da Silva',
             });
 
         expect(res1.statusCode).toEqual(StatusCodes.BAD_REQUEST);
         expect(res1.body).toHaveProperty('errors.body.email');
     });
+    it('Tenta criar registro com email inválido', async () => {
+        const res1 = await testServer
+            .post('/pessoas')
+            .send({
+                cidadeId,
+                email: 'test gmail.com',
+                nomeCompleto: 'test da Silva',
+            });
 
+        expect(res1.statusCode).toEqual(StatusCodes.BAD_REQUEST);
+        expect(res1.body).toHaveProperty('errors.body.email');
+    });
+    it('Tenta criar registro sem cidadeId', async () => {
+        const res1 = await testServer
+            .post('/pessoas')
+            .send({
+                email: 'test@gmail.com',
+                nomeCompleto: 'test da Silva',
+            });
+
+        expect(res1.statusCode).toEqual(StatusCodes.BAD_REQUEST);
+        expect(res1.body).toHaveProperty('errors.body.cidadeId');
+    });
+    it('Tenta criar registro com cidadeId inválido', async () => {
+        const res1 = await testServer
+            .post('/pessoas')
+            .send({
+                cidadeId: 'teste',
+                email: 'test@gmail.com',
+                nomeCompleto: 'test da Silva',
+            });
+
+        expect(res1.statusCode).toEqual(StatusCodes.BAD_REQUEST);
+        expect(res1.body).toHaveProperty('errors.body.cidadeId');
+    });
+    it('Tenta criar registro sem enviar nenhuma propriedade', async () => {
+
+        const res1 = await testServer
+            .post('/pessoas')
+            .send({});
+
+        expect(res1.statusCode).toEqual(StatusCodes.BAD_REQUEST);
+        expect(res1.body).toHaveProperty('errors.body.email');
+        expect(res1.body).toHaveProperty('errors.body.cidadeId');
+        expect(res1.body).toHaveProperty('errors.body.nomeCompleto');
+    });
 });

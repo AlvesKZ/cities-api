@@ -2,7 +2,6 @@ import { ETableNames } from '../../ETableNames';
 import { IPessoa } from '../../models';
 import { Knex } from '../../knex';
 
-
 export const getById = async (id: number): Promise<IPessoa | Error> => {
     try {
         const result = await Knex(ETableNames.pessoa)

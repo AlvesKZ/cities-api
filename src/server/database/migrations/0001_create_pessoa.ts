@@ -13,7 +13,7 @@ export async function up(knex: Knex) {
                 .index()
                 .notNullable()
                 .references('id')
-                .inTable(ETableNames.pessoa)
+                .inTable(ETableNames.cidade)
                 .onUpdate('CASCADE')
                 .onDelete('RESTRICT');
 

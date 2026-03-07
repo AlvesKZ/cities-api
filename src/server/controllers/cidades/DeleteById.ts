@@ -5,7 +5,6 @@ import { validation } from '../../shared/middleware';
 import { StatusCodes } from 'http-status-codes';
 import { CidadesProvider } from '../../database/providers/cidades';
 
-
 interface IParamProps {
   id?: number;
 }
