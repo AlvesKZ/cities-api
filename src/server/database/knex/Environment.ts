@@ -43,11 +43,7 @@ export const production: Knex.Config = {
         directory: path.resolve(__dirname, '..', 'seeds'),
     },
     connection: {
-        host: process.env.DATBASE_HOST,
-        user: process.env.DATBASE_USER,
-        database: process.env.DATBASE_NAME,
-        password: process.env.DATBASE_PASSWORD,
-        port: Number(process.env.DATBASE_PORT || 5432),
+        connectionString: process.env.DATABASE_URL,
         ssl: { rejectUnauthorized: false },
     },
 };
