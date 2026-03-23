@@ -1,3 +1,46 @@
+/**
+ * @swagger
+ * /cidades/{id}:
+ *   get:
+ *     summary: Busca uma cidade pelo ID
+ *     tags:
+ *       - Cidades
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID da cidade
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *           example: 1
+ *     responses:
+ *       200:
+ *         description: Cidade encontrada com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Cidade'
+ *       400:
+ *         description: ID inválido
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *       404:
+ *         description: Cidade não encontrada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *       500:
+ *         description: Erro interno do servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ */
+
 import { Request, Response } from 'express';
 import * as yup from 'yup';
 

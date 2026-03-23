@@ -1,3 +1,41 @@
+/**
+ * @swagger
+ * /cidades:
+ *   post:
+ *     summary: Cria uma nova cidade
+ *     tags:
+ *       - Cidades
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - nome
+ *             properties:
+ *               nome:
+ *                 type: string
+ *                 minLength: 3
+ *                 maxLength: 150
+ *                 example: "São Paulo"
+ *     responses:
+ *       201:
+ *         description: Cidade criada com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                   example: 1
+ *       400:
+ *         description: Dados inválidos
+ *       500:
+ *         description: Erro interno do servidor
+ */
+
 import { Request, Response } from 'express';
 import * as yup from 'yup';
 

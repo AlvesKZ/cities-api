@@ -1,3 +1,21 @@
+/**
+ * @swagger
+ * /cidades:
+ *   get:
+ *     summary: Lista cidades
+ *     tags:
+ *       - Cidades
+ *     responses:
+ *       200:
+ *         description: Lista de cidades
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Cidade'
+ */
+
 import { Request, Response } from 'express';
 import * as yup from 'yup';
 

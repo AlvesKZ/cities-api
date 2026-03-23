@@ -1,3 +1,39 @@
+/**
+ * @swagger
+ * /cidades/{id}:
+ *   put:
+ *     summary: Atualiza uma cidade pelo ID
+ *     tags:
+ *       - Cidades
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID da cidade
+ *         schema:
+ *           type: integer
+ *           example: 1
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/CidadeInput'
+ *     responses:
+ *       200:
+ *         description: Cidade atualizada com sucesso
+ *       400:
+ *         description: Dados inválidos
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *       404:
+ *         description: Cidade não encontrada
+ *       500:
+ *         description: Erro interno do servidor
+ */
+
 import { Request, Response } from 'express';
 import * as yup from 'yup';
 
@@ -40,5 +76,5 @@ export const updateById = async (req: Request<IParamProps, {}, IBodyProps>, res:
         });
     }
 
-    return res.status(StatusCodes.NO_CONTENT).json(result);
+    return res.status(StatusCodes.OK).json(result);
 };

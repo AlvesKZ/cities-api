@@ -1,3 +1,27 @@
+/**
+ * @swagger
+ * /cidades/{id}:
+ *   delete:
+ *     summary: Deleta uma cidade
+ *     tags:
+ *       - Cidades
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       204:
+ *         description: Sucesso
+ *       404:
+ *         description: Não encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ */
+
 import { Request, Response } from 'express';
 import * as yup from 'yup';
 
